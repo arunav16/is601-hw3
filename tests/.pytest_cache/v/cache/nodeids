@@ -1,0 +1,16 @@
+[
+  "test_calculator.py::test_calculator_exit",
+  "test_operations.py::test_add[-2--4--6]",
+  "test_operations.py::test_add[0-7-7]",
+  "test_operations.py::test_add[5-3-8]",
+  "test_operations.py::test_divide[-8--4-2]",
+  "test_operations.py::test_divide[6-3-2]",
+  "test_operations.py::test_divide[7-1-7]",
+  "test_operations.py::test_divide_by_zero",
+  "test_operations.py::test_multiply[-2--4-8]",
+  "test_operations.py::test_multiply[0-7-0]",
+  "test_operations.py::test_multiply[5-3-15]",
+  "test_operations.py::test_subtract[-2--4-2]",
+  "test_operations.py::test_subtract[0-7--7]",
+  "test_operations.py::test_subtract[5-3-2]"
+]
