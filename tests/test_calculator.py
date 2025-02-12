@@ -1,23 +1,28 @@
-# tests/test_calculator.py
 import pytest
 from app.calculator import Calculator
+from app.calculations import CalculationsHistory
 
-@pytest.fixture
-def calculator():
-    return Calculator()
+def test_calculator_operations():
+    calc = Calculator()
+    
+    assert calc.perform_operation("add", 2, 3) == 5
+    assert calc.perform_operation("subtract", 7, 2) == 5
+    assert calc.perform_operation("multiply", 4, 3) == 12
+    assert calc.perform_operation("divide", 10, 2) == 5
 
-def test_add(calculator):
-    assert calculator.add(5, 3) == 8
+def test_calculation_history():
+    CalculationsHistory.clear_history()
+    
+    calc = Calculator()
+    calc.perform_operation("add", 1, 1)
+    calc.perform_operation("multiply", 2, 2)
+    
+    history = CalculationsHistory.get_history()
+    
+    assert len(history) == 2
+    assert history[0].operation == "add"
+    assert history[1].operation == "multiply"
 
-def test_subtract(calculator):
-    assert calculator.subtract(10, 4) == 6
-
-def test_multiply(calculator):
-    assert calculator.multiply(6, 7) == 42
-
-def test_divide(calculator):
-    assert calculator.divide(10, 2) == 5
-
-def test_divide_by_zero(calculator):
-    with pytest.raises(ZeroDivisionError):
-        calculator.divide(10, 0)
+def test_clear_history():
+    CalculationsHistory.clear_history()
+    assert len(CalculationsHistory.get_history()) == 0

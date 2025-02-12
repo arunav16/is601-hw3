@@ -1,6 +1,5 @@
-# app/operations.py
 class Operations:
-    """Class that encapsulates basic arithmetic operations."""
+    """Class containing static methods for basic arithmetic operations."""
 
     @staticmethod
     def add(a, b):
@@ -17,5 +16,5 @@ class Operations:
     @staticmethod
     def divide(a, b):
         if b == 0:
-            raise ZeroDivisionError("Cannot divide by zero.")
+            raise ZeroDivisionError("Cannot divide by zero")
         return a / b
