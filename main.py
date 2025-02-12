@@ -1,4 +1,6 @@
-from app.calculator import calculator
+# main.py
+from app.calculator import Calculator
 
-if __name__=="__main__":
-    calculator()
+if __name__ == "__main__":
+    calc = Calculator()
+    calc.start()

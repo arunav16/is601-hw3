@@ -1,13 +1,23 @@
 # tests/test_calculator.py
-
 import pytest
-from app.calculator import calculator
+from app.calculator import Calculator
 
-def test_calculator_exit(monkeypatch, capsys):
-    """Test if the calculator exits correctly when 'exit' is typed."""
-    inputs = iter(["exit"])
-    monkeypatch.setattr("builtins.input", lambda _: next(inputs))
+@pytest.fixture
+def calculator():
+    return Calculator()
 
-    calculator()
-    captured = capsys.readouterr()
-    assert "Exiting calculator. Goodbye!" in captured.out
+def test_add(calculator):
+    assert calculator.add(5, 3) == 8
+
+def test_subtract(calculator):
+    assert calculator.subtract(10, 4) == 6
+
+def test_multiply(calculator):
+    assert calculator.multiply(6, 7) == 42
+
+def test_divide(calculator):
+    assert calculator.divide(10, 2) == 5
+
+def test_divide_by_zero(calculator):
+    with pytest.raises(ZeroDivisionError):
+        calculator.divide(10, 0)

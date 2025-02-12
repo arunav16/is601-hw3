@@ -1,61 +1,65 @@
 # app/calculator.py
-
 from app.operations import Operations
 
-def add_numbers(num1, num2):
-    return Operations.add(num1, num2)
+class Calculator:
+    """A simple REPL-based calculator using Operations class."""
 
-def subtract_numbers(num1, num2):
-    return Operations.subtract(num1, num2)
+    def __init__(self):
+        """Initialize the calculator."""
+        self.operations = Operations()
 
-def multiply_numbers(num1, num2):
-    return Operations.multiply(num1, num2)
+    def add(self, a, b):
+        """Perform addition."""
+        return self.operations.add(a, b)
 
-def divide_numbers(num1, num2):
-    return Operations.divide(num1, num2)
+    def subtract(self, a, b):
+        """Perform subtraction."""
+        return self.operations.subtract(a, b)
 
-# Dictionary to map operators to functions
-operations_map = {
-    "+": add_numbers,
-    "-": subtract_numbers,
-    "*": multiply_numbers,
-    "/": divide_numbers
-}
+    def multiply(self, a, b):
+        """Perform multiplication."""
+        return self.operations.multiply(a, b)
 
-def calculator():
-    print("Simple Calculator - Type 'exit' to quit.")
+    def divide(self, a, b):
+        """Perform division with error handling."""
+        return self.operations.divide(a, b)
 
-    while True:
-        try:
-            expression = input("Enter operation (e.g., 2 + 3): ").strip()
+    def start(self):
+        """Run the calculator REPL."""
+        print("Simple Calculator (Type 'exit' to quit)")
+        while True:
+            try:
+                expr = input("Enter operation (e.g., 2 + 2): ").strip()
+                if expr.lower() == "exit":
+                    print("Exiting calculator.")
+                    break
+                
+                # Tokenizing user input
+                tokens = expr.split()
+                if len(tokens) != 3:
+                    print("Invalid input format. Use format: <num1> <operator> <num2>")
+                    continue
+                
+                a, op, b = tokens
+                a, b = float(a), float(b)
 
-            if expression.lower() == "exit":
-                print("Exiting calculator. Goodbye!")
-                break
+                # Mapping operators to functions
+                operations_map = {
+                    "+": self.add,
+                    "-": self.subtract,
+                    "*": self.multiply,
+                    "/": self.divide
+                }
 
-            parts = expression.split()
-            if len(parts) != 3:
-                print("Invalid input format. Use format: number operator number")
-                continue
+                if op in operations_map:
+                    result = operations_map[op](a, b)
+                    print(f"Result: {result}")
+                else:
+                    print("Unsupported operation.")
 
-            num1, operator, num2 = parts
-            num1, num2 = float(num1), float(num2)
-
-            # Fetch the corresponding function from the dictionary
-            operation_function = operations_map.get(operator)
-
-            if operation_function:
-                result = operation_function(num1, num2)
-                print(f"Result: {result}")
-            else:
-                print("Invalid operator. Use +, -, *, or /.")
-
-        except ValueError:
-            print("Invalid input. Please enter valid numbers.")
-        except ZeroDivisionError:
-            print("Error: Division by zero is not allowed.")
-        except Exception as e:
-            print(f"An error occurred: {e}")
-
-if __name__ == "__main__":
-    calculator()
+            except ValueError:
+                print("Invalid number format. Please enter valid numbers.")
+            except ZeroDivisionError:
+                print("Error: Cannot divide by zero.")
+            except Exception as e:
+                print(f"Unexpected error: {e}")

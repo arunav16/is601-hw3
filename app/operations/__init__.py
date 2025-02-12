@@ -1,6 +1,7 @@
-# app/operations/__init__.py
-
+# app/operations.py
 class Operations:
+    """Class that encapsulates basic arithmetic operations."""
+
     @staticmethod
     def add(a, b):
         return a + b
