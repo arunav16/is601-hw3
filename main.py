@@ -1,7 +1,7 @@
 import sys
 from app.calculator import Calculator
 
-def main(args = None):
+def main():
     if len(sys.argv) != 4:
         print("Usage: python main.py <num1> <num2> <operation>")
         sys.exit(1)
