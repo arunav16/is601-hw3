@@ -1,28 +1,45 @@
-from app.operations import Operations
-from app.calculations import CalculationsHistory
+from .operations import Operations
+
+class Calculation:
+    """Stores individual calculations."""
+    def __init__(self, a, b, operation, result):
+        self.a = a
+        self.b = b
+        self.operation = operation
+        self.result = result
 
 class Calculator:
-    """A simple calculator using Operations and history management."""
+    """Handles multiple calculations with history."""
+    history = []
 
-    def __init__(self):
-        self.result = None
-
-    def perform_operation(self, operation, a, b):
-        """Executes the given operation and stores it in history."""
+    @classmethod
+    def perform_operation(cls, a, b, operation):
+        try:
+            a, b = float(a), float(b)
+            if operation == "add":
+                result = Operations.add(a, b)
+            elif operation == "subtract":
+                result = Operations.subtract(a, b)
+            elif operation == "multiply":
+                result = Operations.multiply(a, b)
+            elif operation == "divide":
+                result = Operations.divide(a, b)
+            else:
+                return f"Unknown operation: {operation}"
+            
+            calc = Calculation(a, b, operation, result)
+            cls.history.append(calc)
+            return f"The result of {a} {operation} {b} is equal to {result}"
         
-        operations_map = {
-            "add": Operations.add,
-            "subtract": Operations.subtract,
-            "multiply": Operations.multiply,
-            "divide": Operations.divide
-        }
+        except ValueError:
+            return f"Invalid number input: {a} or {b} is not a valid number."
+        except ZeroDivisionError as e:
+            return f"An error occurred: {e}"
 
-        if operation not in operations_map:
-            raise ValueError("Invalid operation")
+    @classmethod
+    def get_history(cls):
+        return cls.history
 
-        self.result = operations_map[operation](a, b)
-        CalculationsHistory.add_calculation(operation, a, b, self.result)
-        return self.result
-
-    def get_last_result(self):
-        return self.result
+    @classmethod
+    def clear_history(cls):
+        cls.history = []

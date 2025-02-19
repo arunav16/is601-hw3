@@ -1,6 +1,4 @@
 class Operations:
-    """Class containing static methods for basic arithmetic operations."""
-
     @staticmethod
     def add(a, b):
         return a + b
@@ -18,3 +16,4 @@ class Operations:
         if b == 0:
             raise ZeroDivisionError("Cannot divide by zero")
         return a / b
+
