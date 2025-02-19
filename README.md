@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Python Calculator
 
 ## Overview
@@ -89,4 +88,4 @@ The test suite aims for high coverage across all functionalities and edge cases,
 
 ## Conclusion
 This Python calculator project serves as a fundamental tool for basic arithmetic operations while demonstrating good programming practices, including error handling and testing. The integration of the Faker library enhances the testing process, ensuring that the calculator can handle a variety of input scenarios effectively.
->>>>>>> faker
+
